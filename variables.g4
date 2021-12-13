@@ -1,9 +1,34 @@
 grammar variables;
-fragment DIGIT
-    : [1-9]
+NUMBER
+    : INTEGER
+    | FLOAT;
+INTEGER
+    : [-+]? DIGIT+
     | ZERO;
+FLOAT
+    : INTEGER '.' [ZERO | DIGIT]*
+    | INTEGER '.'
+    | ZERO '.' [ZERO | DIGIT]*;
+CHAR
+    : LOW_CHAR
+    | HIGH_CHAR;
+STRING
+    : ["'] [NUMBER | CHAR]* ["'];
+
+fragment DIGIT
+    : [1-9];
+fragment NEG_DIGIT
+    : '-' DIGIT;
+fragment POS_DIGIT
+    : '+' DIGIT;
+
+
+
+
+
+
 fragment ZERO
-    : '0';
+    : [0];
 fragment LOW_CHAR
     : [a-z];
 fragment HIGH_CHAR
@@ -14,7 +39,7 @@ fragment CHAR
 fragment STRING
     : CHAR*;
 fragment INTEGER
-    : DIGIT*
+    : DIGIT+
     | ZERO;
 fragment FLOAT
     : ZERO? '.' DIGIT*

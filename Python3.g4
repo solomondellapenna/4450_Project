@@ -1,39 +1,25 @@
 grammar Python3;
 
-arithmetic_exp
-    : arithmetic_comp 
-    | arithmetic_exp OPERATOR arithmetic_exp
+arithmetic_exp: arithmetic_exp OPERATOR arithmetic_exp
     | arithmetic_exp OPERATOR (INTEGER | FLOAT)
     | (INTEGER | FLOAT) OPERATOR arithmetic_exp
-    | (INTEGER | FLOAT) OPERATOR (INTEGER | FLOAT);
+    | num_arithmetic;
 
-arithmetic_comp
-    : num_addition
-    | num_substraction 
-    | num_multiplication
-    | num_reg_division
-    | num_int_division
-    | num_exp
-    | num_mod;
-num_addition: (INTEGER | FLOAT) ADD_OPERATOR (INTEGER | FLOAT);
-num_substraction: (INTEGER | FLOAT) SUBTRACT_OPERATOR (INTEGER | FLOAT);
-num_multiplication: (INTEGER | FLOAT) MULTIPLY_OPERATOR (INTEGER | FLOAT);
-num_reg_division: (INTEGER | FLOAT) DIV_OPERATOR (INTEGER | FLOAT);
-num_int_division: (INTEGER | FLOAT) INTDIV_OPERATOR(INTEGER | FLOAT);
-num_exp: (INTEGER | FLOAT) EXP_OPERATOR (INTEGER | FLOAT);
-num_mod: (INTEGER | FLOAT) MOD_OPERATOR (INTEGER | FLOAT);
-
+num_arithmetic: (INTEGER | FLOAT) OPERATOR (INTEGER | FLOAT);
 string_addition: STRING ADD_OPERATOR STRING;
 
 atom: (INTEGER | FLOAT | STRING | VAR_NAME | NONE | TRUE | FALSE);
 comp_op: ('<' | '>' | '==' | '>=' | '<=' | '<>' | '!=' | AND_OPERATOR | OR_OPERATOR | NOT_OPERATOR | OR | NOT | AND);
 test: atom comp_op atom;
 definition: VAR_NAME ASSIGN atom;
+while_exp: WHILE ' ' test COLON NEWLINE TAB
+    | WHILE ' ' test (COMPOUND_EXP ' ' test)* COLON NEWLINE TAB;
 
 stmt
     : test
     | definition
     | arithmetic_exp
+    | while_exp
     ;
 
 //Primitive Data Type Tokens
@@ -47,7 +33,7 @@ STRING: ["] (~["]|'\\"')* ["] //CASE 1: start with " we cannot have another " in
 VAR_NAME: START_CHAR (LETTER | INTEGER | '_')*; //variables can start with an underscore or a letter and be followed by an sequence
                                                         //of 0 or more letters, integers, or underscores
 // WHITE_SPACE: [ \t\n]+ -> skip;
-SKIP_
+SKIP_WS
  : ( SPACES | COMMENT | LINE_JOINING ) -> skip
  ;
 
@@ -60,6 +46,7 @@ fragment LINE_JOINING
  ;
 
 NEWLINE: '\r'? '\n';
+TAB: '\t';
 
 OPERATOR: MULTIPLY_OPERATOR
     | SUBTRACT_OPERATOR
@@ -132,6 +119,7 @@ BREAK : 'break';
 OR : 'or';
 AND : 'and';
 NOT : 'not';
+COMPOUND_EXP: OR | AND | NOT;
 
 //Booleans
 NONE : 'None';

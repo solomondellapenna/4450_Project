@@ -1,10 +1,25 @@
 grammar Python3;
 
-num_addition: (INTEGER | FLOAT) ADD_OPERATOR (INTEGER | FLOAT) NEWLINE;
-num_substraction: (INTEGER | FLOAT) SUBTRACT_OPERATOR (INTEGER | FLOAT);
-num_multiplication: (INTEGER | FLOAT) MULTIPLY_OPERATOR (INTEGER | FLOAT);
-num_division: (INTEGER | FLOAT) DIV_OPERATOR (INTEGER | FLOAT);
-num_exp: (INTEGER | FLOAT) EXP_OPERATOR (INTEGER | FLOAT);
+arithmetic_exp: arithmetic_comp 
+    | arithmetic_exp OPERATOR arithmetic_exp
+    | arithmetic_exp OPERATOR (INTEGER | FLOAT)
+    | (INTEGER | FLOAT) OPERATOR arithmetic_exp;
+
+arithmetic_comp: num_addition
+    | num_substraction 
+    | num_multiplication
+    | num_reg_division
+    | num_int_division
+    | num_exp
+    | num_mod;
+num_addition: (INTEGER | FLOAT) ADD_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+num_substraction: (INTEGER | FLOAT) SUBTRACT_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+num_multiplication: (INTEGER | FLOAT) MULTIPLY_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+num_reg_division: (INTEGER | FLOAT) DIV_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+num_int_division: (INTEGER | FLOAT) INTDIV_OPERATOR(INTEGER | FLOAT) WHITE_SPACE;
+num_exp: (INTEGER | FLOAT) EXP_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+num_mod: (INTEGER | FLOAT) MOD_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+
 string_addition: STRING ADD_OPERATOR STRING;
 
 //Primitive Data Type Tokens
@@ -12,15 +27,22 @@ INTEGER: NZ_DIGIT DIGIT* //CASE 1: Ints can be any number 1-9 followed by 0 or m
     | ZERO; //CASE 2: it can be just 0
 FLOAT: DIGIT* DECIMAL //CASE 1: 0 or more digits ([0-9]) followed by a decimal & 1 more more digits [0-9))
     | DIGIT+ DOT; //CASE 2: 1 or more digits ([0-9]) followed by a decimal
-STRING:
-    ["] (~["]|'\\"')* ["] //CASE 1: start with " we cannot have another " in the string, unless we escape with \\"
+STRING: ["] (~["]|'\\"')* ["] //CASE 1: start with " we cannot have another " in the string, unless we escape with \\"
     | ['] (~[']|'\\\'')* [']; //CASE 2: same as case 1 however we start and end with ', escaping with \\\'
 
 VAR_NAME: START_CHAR (LETTER | INTEGER | '_')*; //variables can start with an underscore or a letter and be followed by an sequence
                                                         //of 0 or more letters, integers, or underscores
-WHITE_SPACE: [ \t]+ -> skip;
+WHITE_SPACE: [ \t\n]+ -> skip;
 
 NEWLINE: '\r'? '\n';
+
+OPERATOR: MULTIPLY_OPERATOR
+    | SUBTRACT_OPERATOR
+    | ADD_OPERATOR
+    | EXP_OPERATOR
+    | DIV_OPERATOR
+    | INTDIV_OPERATOR
+    | MOD_OPERATOR;
 
 fragment NZ_DIGIT: [1-9];
 

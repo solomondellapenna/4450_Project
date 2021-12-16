@@ -1,12 +1,14 @@
 grammar Python3;
 
-arithmetic_exp: arithmetic_comp 
+arithmetic_exp
+    : arithmetic_comp 
     | arithmetic_exp OPERATOR arithmetic_exp
     | arithmetic_exp OPERATOR (INTEGER | FLOAT)
     | (INTEGER | FLOAT) OPERATOR arithmetic_exp
     | (INTEGER | FLOAT) OPERATOR (INTEGER | FLOAT);
 
-arithmetic_comp: num_addition
+arithmetic_comp
+    : num_addition
     | num_substraction 
     | num_multiplication
     | num_reg_division
@@ -23,6 +25,17 @@ num_mod: (INTEGER | FLOAT) MOD_OPERATOR (INTEGER | FLOAT);
 
 string_addition: STRING ADD_OPERATOR STRING;
 
+atom: (INTEGER | FLOAT | STRING | VAR_NAME | NONE | TRUE | FALSE);
+comp_op: ('<' | '>' | '==' | '>=' | '<=' | '<>' | '!=' | AND_OPERATOR | OR_OPERATOR | NOT_OPERATOR | OR | NOT | AND);
+test: atom comp_op atom;
+definition: VAR_NAME ASSIGN atom;
+
+stmt
+    : test
+    | definition
+    | arithmetic_exp
+    ;
+
 //Primitive Data Type Tokens
 INTEGER: NZ_DIGIT DIGIT* //CASE 1: Ints can be any number 1-9 followed by 0 or more numbers 0-9
     | ZERO; //CASE 2: it can be just 0
@@ -33,7 +46,18 @@ STRING: ["] (~["]|'\\"')* ["] //CASE 1: start with " we cannot have another " in
 
 VAR_NAME: START_CHAR (LETTER | INTEGER | '_')*; //variables can start with an underscore or a letter and be followed by an sequence
                                                         //of 0 or more letters, integers, or underscores
-WHITE_SPACE: [ \t\n]+ -> skip;
+// WHITE_SPACE: [ \t\n]+ -> skip;
+SKIP_
+ : ( SPACES | COMMENT | LINE_JOINING ) -> skip
+ ;
+
+fragment SPACES
+ : [ \t]+
+ ;
+
+fragment LINE_JOINING
+ : '\\' SPACES? ( '\r'? '\n' | '\r' | '\f' )
+ ;
 
 NEWLINE: '\r'? '\n';
 
@@ -83,6 +107,7 @@ MULT_EQUALS : '*=';
 DIV_EQUALS : '/=';
 OR_OPERATOR : '|';
 AND_OPERATOR : '&';
+NOT_OPERATOR: '!';
 
 //Python Key characters and statement control characters
 DOT : '.';
@@ -109,6 +134,7 @@ AND : 'and';
 NOT : 'not';
 
 //Booleans
+NONE : 'None';
 TRUE : 'True';
 FALSE : 'False';
 

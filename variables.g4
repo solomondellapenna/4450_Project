@@ -16,13 +16,13 @@ STRING
 BOOLEAN
     : TRUE
     | FALSE;
+NAMES
+    : [CHAR | '_'] [CHAR | DIGIT | '_']+;
+VARIABLE
+    : NAMES '=' [NUMBER | CHAR | STRING];
 
 fragment DIGIT
     : [0-9];
-fragment NEG_DIGIT
-    : '-' DIGIT;
-fragment POS_DIGIT
-    : '+' DIGIT;
 fragment LOW_CHAR
     : [a-z];
 fragment HIGH_CHAR

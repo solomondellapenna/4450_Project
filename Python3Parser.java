@@ -124,8 +124,15 @@ public class Python3Parser extends Parser {
 		public Arithmetic_expContext arithmetic_exp(int i) {
 			return getRuleContext(Arithmetic_expContext.class,i);
 		}
-		public TerminalNode INTEGER() { return getToken(Python3Parser.INTEGER, 0); }
-		public TerminalNode FLOAT() { return getToken(Python3Parser.FLOAT, 0); }
+		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
+		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(Python3Parser.INTEGER, i);
+		}
+		public List<TerminalNode> FLOAT() { return getTokens(Python3Parser.FLOAT); }
+		public TerminalNode FLOAT(int i) {
+			return getToken(Python3Parser.FLOAT, i);
+		}
 		public Arithmetic_expContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -156,7 +163,7 @@ public class Python3Parser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(25);
+			setState(31);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
@@ -180,12 +187,42 @@ public class Python3Parser extends Parser {
 				setState(23);
 				match(OPERATOR);
 				setState(24);
-				arithmetic_exp(1);
+				arithmetic_exp(0);
+				setState(25);
+				match(WHITE_SPACE);
+				}
+				break;
+			case 3:
+				{
+				setState(27);
+				_la = _input.LA(1);
+				if ( !(_la==INTEGER || _la==FLOAT) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(28);
+				match(OPERATOR);
+				setState(29);
+				_la = _input.LA(1);
+				if ( !(_la==INTEGER || _la==FLOAT) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(30);
+				match(WHITE_SPACE);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(35);
+			setState(44);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -193,30 +230,32 @@ public class Python3Parser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(33);
+					setState(42);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
 						_localctx = new Arithmetic_expContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmetic_exp);
-						setState(27);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(28);
+						setState(33);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(34);
 						match(OPERATOR);
-						setState(29);
-						arithmetic_exp(4);
+						setState(35);
+						arithmetic_exp(0);
+						setState(36);
+						match(WHITE_SPACE);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new Arithmetic_expContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_arithmetic_exp);
-						setState(30);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(31);
+						setState(38);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(39);
 						match(OPERATOR);
-						setState(32);
+						setState(40);
 						_la = _input.LA(1);
 						if ( !(_la==INTEGER || _la==FLOAT) ) {
 						_errHandler.recoverInline(this);
@@ -226,12 +265,14 @@ public class Python3Parser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
+						setState(41);
+						match(WHITE_SPACE);
 						}
 						break;
 					}
 					} 
 				}
-				setState(37);
+				setState(46);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -288,55 +329,55 @@ public class Python3Parser extends Parser {
 		Arithmetic_compContext _localctx = new Arithmetic_compContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_arithmetic_comp);
 		try {
-			setState(45);
+			setState(54);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(38);
+				setState(47);
 				num_addition();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(39);
+				setState(48);
 				num_substraction();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(40);
+				setState(49);
 				num_multiplication();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(41);
+				setState(50);
 				num_reg_division();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(42);
+				setState(51);
 				num_int_division();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(43);
+				setState(52);
 				num_exp();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(44);
+				setState(53);
 				num_mod();
 				}
 				break;
@@ -355,7 +396,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_additionContext extends ParserRuleContext {
 		public TerminalNode ADD_OPERATOR() { return getToken(Python3Parser.ADD_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -385,7 +425,7 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
+			setState(56);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -395,9 +435,9 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(48);
+			setState(57);
 			match(ADD_OPERATOR);
-			setState(49);
+			setState(58);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -407,8 +447,6 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(50);
-			match(WHITE_SPACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -424,7 +462,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_substractionContext extends ParserRuleContext {
 		public TerminalNode SUBTRACT_OPERATOR() { return getToken(Python3Parser.SUBTRACT_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -454,7 +491,7 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(52);
+			setState(60);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -464,9 +501,9 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(53);
+			setState(61);
 			match(SUBTRACT_OPERATOR);
-			setState(54);
+			setState(62);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -476,8 +513,6 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(55);
-			match(WHITE_SPACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -493,7 +528,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_multiplicationContext extends ParserRuleContext {
 		public TerminalNode MULTIPLY_OPERATOR() { return getToken(Python3Parser.MULTIPLY_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -523,7 +557,7 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
+			setState(64);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -533,9 +567,9 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(58);
+			setState(65);
 			match(MULTIPLY_OPERATOR);
-			setState(59);
+			setState(66);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -545,8 +579,6 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(60);
-			match(WHITE_SPACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -562,7 +594,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_reg_divisionContext extends ParserRuleContext {
 		public TerminalNode DIV_OPERATOR() { return getToken(Python3Parser.DIV_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -592,7 +623,7 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62);
+			setState(68);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -602,9 +633,9 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(63);
+			setState(69);
 			match(DIV_OPERATOR);
-			setState(64);
+			setState(70);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -614,8 +645,6 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(65);
-			match(WHITE_SPACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -631,7 +660,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_int_divisionContext extends ParserRuleContext {
 		public TerminalNode INTDIV_OPERATOR() { return getToken(Python3Parser.INTDIV_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -661,7 +689,7 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(67);
+			setState(72);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -671,9 +699,9 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(68);
+			setState(73);
 			match(INTDIV_OPERATOR);
-			setState(69);
+			setState(74);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -683,8 +711,6 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(70);
-			match(WHITE_SPACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -700,7 +726,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_expContext extends ParserRuleContext {
 		public TerminalNode EXP_OPERATOR() { return getToken(Python3Parser.EXP_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -730,7 +755,7 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(72);
+			setState(76);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -740,9 +765,9 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(73);
+			setState(77);
 			match(EXP_OPERATOR);
-			setState(74);
+			setState(78);
 			_la = _input.LA(1);
 			if ( !(_la==INTEGER || _la==FLOAT) ) {
 			_errHandler.recoverInline(this);
@@ -752,8 +777,6 @@ public class Python3Parser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(75);
-			match(WHITE_SPACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -769,7 +792,6 @@ public class Python3Parser extends Parser {
 
 	public static class Num_modContext extends ParserRuleContext {
 		public TerminalNode MOD_OPERATOR() { return getToken(Python3Parser.MOD_OPERATOR, 0); }
-		public TerminalNode WHITE_SPACE() { return getToken(Python3Parser.WHITE_SPACE, 0); }
 		public List<TerminalNode> INTEGER() { return getTokens(Python3Parser.INTEGER); }
 		public TerminalNode INTEGER(int i) {
 			return getToken(Python3Parser.INTEGER, i);
@@ -799,30 +821,28 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(77);
-			_la = _input.LA(1);
-			if ( !(_la==INTEGER || _la==FLOAT) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			setState(78);
-			match(MOD_OPERATOR);
-			setState(79);
-			_la = _input.LA(1);
-			if ( !(_la==INTEGER || _la==FLOAT) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
 			setState(80);
-			match(WHITE_SPACE);
+			_la = _input.LA(1);
+			if ( !(_la==INTEGER || _la==FLOAT) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(81);
+			match(MOD_OPERATOR);
+			setState(82);
+			_la = _input.LA(1);
+			if ( !(_la==INTEGER || _la==FLOAT) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -862,11 +882,11 @@ public class Python3Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(82);
-			match(STRING);
-			setState(83);
-			match(ADD_OPERATOR);
 			setState(84);
+			match(STRING);
+			setState(85);
+			match(ADD_OPERATOR);
+			setState(86);
 			match(STRING);
 			}
 		}
@@ -891,35 +911,36 @@ public class Python3Parser extends Parser {
 	private boolean arithmetic_exp_sempred(Arithmetic_expContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 3);
+			return precpred(_ctx, 4);
 		case 1:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 3);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\63Y\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\63[\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
-		"\2\3\2\3\2\3\2\3\2\5\2\34\n\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2$\n\2\f\2\16"+
-		"\2\'\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\60\n\3\3\4\3\4\3\4\3\4\3\4\3"+
-		"\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b"+
-		"\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3"+
-		"\13\2\3\2\f\2\4\6\b\n\f\16\20\22\24\2\3\3\2\3\4\2W\2\33\3\2\2\2\4/\3\2"+
-		"\2\2\6\61\3\2\2\2\b\66\3\2\2\2\n;\3\2\2\2\f@\3\2\2\2\16E\3\2\2\2\20J\3"+
-		"\2\2\2\22O\3\2\2\2\24T\3\2\2\2\26\27\b\2\1\2\27\34\5\4\3\2\30\31\t\2\2"+
-		"\2\31\32\7\t\2\2\32\34\5\2\2\3\33\26\3\2\2\2\33\30\3\2\2\2\34%\3\2\2\2"+
-		"\35\36\f\5\2\2\36\37\7\t\2\2\37$\5\2\2\6 !\f\4\2\2!\"\7\t\2\2\"$\t\2\2"+
-		"\2#\35\3\2\2\2# \3\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&\3\3\2\2\2\'%"+
-		"\3\2\2\2(\60\5\6\4\2)\60\5\b\5\2*\60\5\n\6\2+\60\5\f\7\2,\60\5\16\b\2"+
-		"-\60\5\20\t\2.\60\5\22\n\2/(\3\2\2\2/)\3\2\2\2/*\3\2\2\2/+\3\2\2\2/,\3"+
-		"\2\2\2/-\3\2\2\2/.\3\2\2\2\60\5\3\2\2\2\61\62\t\2\2\2\62\63\7\f\2\2\63"+
-		"\64\t\2\2\2\64\65\7\7\2\2\65\7\3\2\2\2\66\67\t\2\2\2\678\7\13\2\289\t"+
-		"\2\2\29:\7\7\2\2:\t\3\2\2\2;<\t\2\2\2<=\7\n\2\2=>\t\2\2\2>?\7\7\2\2?\13"+
-		"\3\2\2\2@A\t\2\2\2AB\7\16\2\2BC\t\2\2\2CD\7\7\2\2D\r\3\2\2\2EF\t\2\2\2"+
-		"FG\7\17\2\2GH\t\2\2\2HI\7\7\2\2I\17\3\2\2\2JK\t\2\2\2KL\7\r\2\2LM\t\2"+
-		"\2\2MN\7\7\2\2N\21\3\2\2\2OP\t\2\2\2PQ\7\20\2\2QR\t\2\2\2RS\7\7\2\2S\23"+
-		"\3\2\2\2TU\7\5\2\2UV\7\f\2\2VW\7\5\2\2W\25\3\2\2\2\6\33#%/";
+		"\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\"\n\2\3\2\3\2\3\2\3\2\3"+
+		"\2\3\2\3\2\3\2\3\2\7\2-\n\2\f\2\16\2\60\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\5\39\n\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\7\3\7\3"+
+		"\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13"+
+		"\3\13\3\13\2\3\2\f\2\4\6\b\n\f\16\20\22\24\2\3\3\2\3\4\2Z\2!\3\2\2\2\4"+
+		"8\3\2\2\2\6:\3\2\2\2\b>\3\2\2\2\nB\3\2\2\2\fF\3\2\2\2\16J\3\2\2\2\20N"+
+		"\3\2\2\2\22R\3\2\2\2\24V\3\2\2\2\26\27\b\2\1\2\27\"\5\4\3\2\30\31\t\2"+
+		"\2\2\31\32\7\t\2\2\32\33\5\2\2\2\33\34\7\7\2\2\34\"\3\2\2\2\35\36\t\2"+
+		"\2\2\36\37\7\t\2\2\37 \t\2\2\2 \"\7\7\2\2!\26\3\2\2\2!\30\3\2\2\2!\35"+
+		"\3\2\2\2\".\3\2\2\2#$\f\6\2\2$%\7\t\2\2%&\5\2\2\2&\'\7\7\2\2\'-\3\2\2"+
+		"\2()\f\5\2\2)*\7\t\2\2*+\t\2\2\2+-\7\7\2\2,#\3\2\2\2,(\3\2\2\2-\60\3\2"+
+		"\2\2.,\3\2\2\2./\3\2\2\2/\3\3\2\2\2\60.\3\2\2\2\619\5\6\4\2\629\5\b\5"+
+		"\2\639\5\n\6\2\649\5\f\7\2\659\5\16\b\2\669\5\20\t\2\679\5\22\n\28\61"+
+		"\3\2\2\28\62\3\2\2\28\63\3\2\2\28\64\3\2\2\28\65\3\2\2\28\66\3\2\2\28"+
+		"\67\3\2\2\29\5\3\2\2\2:;\t\2\2\2;<\7\f\2\2<=\t\2\2\2=\7\3\2\2\2>?\t\2"+
+		"\2\2?@\7\13\2\2@A\t\2\2\2A\t\3\2\2\2BC\t\2\2\2CD\7\n\2\2DE\t\2\2\2E\13"+
+		"\3\2\2\2FG\t\2\2\2GH\7\16\2\2HI\t\2\2\2I\r\3\2\2\2JK\t\2\2\2KL\7\17\2"+
+		"\2LM\t\2\2\2M\17\3\2\2\2NO\t\2\2\2OP\7\r\2\2PQ\t\2\2\2Q\21\3\2\2\2RS\t"+
+		"\2\2\2ST\7\20\2\2TU\t\2\2\2U\23\3\2\2\2VW\7\5\2\2WX\7\f\2\2XY\7\5\2\2"+
+		"Y\25\3\2\2\2\6!,.8";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

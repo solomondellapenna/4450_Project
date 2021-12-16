@@ -3,7 +3,8 @@ grammar Python3;
 arithmetic_exp: arithmetic_comp 
     | arithmetic_exp OPERATOR arithmetic_exp
     | arithmetic_exp OPERATOR (INTEGER | FLOAT)
-    | (INTEGER | FLOAT) OPERATOR arithmetic_exp;
+    | (INTEGER | FLOAT) OPERATOR arithmetic_exp
+    | (INTEGER | FLOAT) OPERATOR (INTEGER | FLOAT);
 
 arithmetic_comp: num_addition
     | num_substraction 
@@ -12,13 +13,13 @@ arithmetic_comp: num_addition
     | num_int_division
     | num_exp
     | num_mod;
-num_addition: (INTEGER | FLOAT) ADD_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
-num_substraction: (INTEGER | FLOAT) SUBTRACT_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
-num_multiplication: (INTEGER | FLOAT) MULTIPLY_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
-num_reg_division: (INTEGER | FLOAT) DIV_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
-num_int_division: (INTEGER | FLOAT) INTDIV_OPERATOR(INTEGER | FLOAT) WHITE_SPACE;
-num_exp: (INTEGER | FLOAT) EXP_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
-num_mod: (INTEGER | FLOAT) MOD_OPERATOR (INTEGER | FLOAT) WHITE_SPACE;
+num_addition: (INTEGER | FLOAT) ADD_OPERATOR (INTEGER | FLOAT);
+num_substraction: (INTEGER | FLOAT) SUBTRACT_OPERATOR (INTEGER | FLOAT);
+num_multiplication: (INTEGER | FLOAT) MULTIPLY_OPERATOR (INTEGER | FLOAT);
+num_reg_division: (INTEGER | FLOAT) DIV_OPERATOR (INTEGER | FLOAT);
+num_int_division: (INTEGER | FLOAT) INTDIV_OPERATOR(INTEGER | FLOAT);
+num_exp: (INTEGER | FLOAT) EXP_OPERATOR (INTEGER | FLOAT);
+num_mod: (INTEGER | FLOAT) MOD_OPERATOR (INTEGER | FLOAT);
 
 string_addition: STRING ADD_OPERATOR STRING;
 

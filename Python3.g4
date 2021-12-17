@@ -10,15 +10,15 @@ string_addition: STRING ADD_OPERATOR STRING;
 
 atom: (INTEGER | FLOAT | STRING | VAR_NAME | NONE | TRUE | FALSE);
 comp_op: (EQUALS_TO | GREATER_EQUALS | LESSER_EQUALS | GREATER_EQUALS | LESSER_EQUALS | NOT_EQUALS | AND_OPERATOR | OR_OPERATOR | NOT_OPERATOR | OR | NOT | AND);
-test: atom comp_op atom;
-definition: VAR_NAME ASSIGN atom;
-while_stmt: WHILE test (NOT?(AND|OR) test)* COLON (NEWLINE TAB stmt)+;
-if_stmt: IF test (NOT?(AND|OR) test)* COLON ((ELIF test COLON)?indent_block)+ (ELSE COLON indent_block+)?;
-for_stmt: FOR VAR_NAME IN VAR_NAME COLON indent_block;
-function_call: VAR_NAME O_PAR (atom',')* C_PAR;
-indent_block: (NEWLINE TAB stmt)+;
+test: atom comp_op atom; //conditional statements
+definition: VAR_NAME ASSIGN atom; //variable declaration
+while_stmt: WHILE test (NOT?(AND|OR) test)* COLON (NEWLINE TAB stmt)+; //while loop
+if_stmt: IF test (NOT?(AND|OR) test)* COLON ((ELIF test COLON)?indent_block)+ (ELSE COLON indent_block+)?; //if-iterative
+for_stmt: FOR VAR_NAME IN VAR_NAME COLON indent_block; //for-iterative
+function_call: VAR_NAME O_PAR (atom',')* C_PAR; //calling function (no need for def here)
+indent_block: (NEWLINE TAB stmt)+; //allows us to indent each appropriate stmt call
 
-stmt
+stmt //adding all different arguments
     : test
     | definition
     | augmentation
@@ -56,18 +56,18 @@ SKIP_WS
  : ( SPACES | COMMENT | LINE_JOINING ) -> skip
  ;
 
-fragment SPACES
+fragment SPACES //if we have a space or tab
  : [ \t]+
  ;
 
-fragment LINE_JOINING
+fragment LINE_JOINING //how we connect the lines together
  : '\\' SPACES? ( '\r'? '\n' | '\r' | '\f' )
  ;
 
 NEWLINE: '\r'? '\n';
 TAB: '\t';
 
-OPERATOR: MULTIPLY_OPERATOR
+OPERATOR: MULTIPLY_OPERATOR //all arithmetic operators by fragment
     | SUBTRACT_OPERATOR
     | ADD_OPERATOR
     | EXP_OPERATOR
@@ -75,6 +75,7 @@ OPERATOR: MULTIPLY_OPERATOR
     | INTDIV_OPERATOR
     | MOD_OPERATOR;
 
+//fragments for readability
 fragment NZ_DIGIT: [1-9];
 
 fragment DIGIT: [0-9];

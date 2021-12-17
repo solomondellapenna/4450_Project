@@ -9,18 +9,37 @@ num_arithmetic: (INTEGER | FLOAT) OPERATOR (INTEGER | FLOAT);
 string_addition: STRING ADD_OPERATOR STRING;
 
 atom: (INTEGER | FLOAT | STRING | VAR_NAME | NONE | TRUE | FALSE);
-comp_op: ('<' | '>' | '==' | '>=' | '<=' | '<>' | '!=' | AND_OPERATOR | OR_OPERATOR | NOT_OPERATOR | OR | NOT | AND);
+comp_op: (EQUALS_TO | GREATER_EQUALS | LESSER_EQUALS | GREATER_EQUALS | LESSER_EQUALS | NOT_EQUALS | AND_OPERATOR | OR_OPERATOR | NOT_OPERATOR | OR | NOT | AND);
 test: atom comp_op atom;
 definition: VAR_NAME ASSIGN atom;
-while_exp: WHILE ' ' test COLON NEWLINE TAB
-    | WHILE ' ' test (COMPOUND_EXP ' ' test)* COLON NEWLINE TAB;
+while_stmt: WHILE test (NOT?(AND|OR) test)* COLON (NEWLINE TAB stmt)+;
+if_stmt: IF test (NOT?(AND|OR) test)* COLON ((ELIF test COLON)?indent_block)+ (ELSE COLON indent_block+)?;
+for_stmt: FOR VAR_NAME IN VAR_NAME COLON indent_block;
+function_call: VAR_NAME O_PAR (atom',')* C_PAR;
+indent_block: (NEWLINE TAB stmt)+;
 
 stmt
     : test
     | definition
+    | augmentation
     | arithmetic_exp
-    | while_exp
+    | if_stmt
+    | while_stmt
+    | for_stmt
+    | COMMENT
+    | function_call
     ;
+
+augmentation: VAR_NAME augment (INTEGER|FLOAT);
+augment
+    : ADD_EQUALS
+    | SUB_EQUALS
+    | MULT_EQUALS
+    | DIV_EQUALS
+    | XOR_ASSIGN
+    | MOD_ASSIGN
+    ;
+
 
 //Primitive Data Type Tokens
 INTEGER: NZ_DIGIT DIGIT* //CASE 1: Ints can be any number 1-9 followed by 0 or more numbers 0-9
@@ -70,7 +89,7 @@ fragment EXPONENT: [+-]? DIGIT+;
 
 fragment START_CHAR: ('_' | [A-Za-z]);
 
-fragment COMMENT: '#' ~[\r\n\f]*;
+COMMENT: '#' ~[\r\n\f]*;
 
 //NON-CFG Work
 //Python Arithmetic Operators and Characters
@@ -92,6 +111,8 @@ ADD_EQUALS: '+=';
 SUB_EQUALS : '-=';
 MULT_EQUALS : '*=';
 DIV_EQUALS : '/=';
+XOR_ASSIGN : '^=';
+MOD_ASSIGN : '%=';
 OR_OPERATOR : '|';
 AND_OPERATOR : '&';
 NOT_OPERATOR: '!';
@@ -119,7 +140,7 @@ BREAK : 'break';
 OR : 'or';
 AND : 'and';
 NOT : 'not';
-COMPOUND_EXP: OR | AND | NOT;
+IN : 'in';
 
 //Booleans
 NONE : 'None';
